@@ -18,12 +18,16 @@ import { cn } from "@/lib/utils"
 import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { useForm } from "react-hook-form"
+import { useAppDispatch } from "@/redux/hook"
+import { addTask } from "@/features/task/taskSlice"
 
 export function AddTaskModal() {
   const form = useForm()
 
-  const onSubmit  =(data:unknown)=>{
+  const Dispatch = useAppDispatch()
+  const onSubmit  =(data)=>{
    console.log(data);
+    Dispatch(addTask(data))
   }
 
   return (
@@ -42,7 +46,7 @@ export function AddTaskModal() {
           <form onSubmit={form.handleSubmit((onSubmit))}>
             <FormField
               control={form.control}
-              name="task"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Task Name</FormLabel>

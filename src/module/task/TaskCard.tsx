@@ -11,6 +11,7 @@ interface IProps{
 }
 
 function TaskCard({task}: IProps) {
+    
   return (
     <div className=" border px-5 py-5 rounded-md" >
 
@@ -21,7 +22,9 @@ function TaskCard({task}: IProps) {
                    "bg-green-500":task.priority ==="medium",
                     "bg-red-400":task.priority ==="high",
                 })}></div>
-                <h1> {task.title} </h1>
+                <h1> 
+                   <h1>{task.title}</h1>
+                </h1>
                   
                    </div>
 
