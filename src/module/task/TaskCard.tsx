@@ -1,8 +1,10 @@
 
 import { cn } from "@/lib/utils";
-
+import { Checkbox } from "@/components/ui/checkbox"
 import type { ITask } from "@/types/taskInterface";
 import { Trash2 } from "lucide-react";
+import { useAppDispatch } from "@/redux/hook";
+import { toggleCompleteState } from "@/features/task/taskSlice";
 
 
 
@@ -10,8 +12,13 @@ interface IProps{
     task:ITask
 }
 
+
+
 function TaskCard({task}: IProps) {
-    
+   
+  
+  const Dispatch = useAppDispatch()
+
   return (
     <div className=" border px-5 py-5 rounded-md" >
 
@@ -33,7 +40,7 @@ function TaskCard({task}: IProps) {
 
                         <Trash2/>
                     </button>
-                   
+                      <Checkbox onClick={()=>Dispatch(toggleCompleteState(task.id))} className=" border-amber-300" />
                    </div>
 
         </div>

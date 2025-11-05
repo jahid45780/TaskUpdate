@@ -17,17 +17,18 @@ import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
-import { useForm } from "react-hook-form"
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form"
 import { useAppDispatch } from "@/redux/hook"
 import { addTask } from "@/features/task/taskSlice"
+import type { ITask } from "@/types/taskInterface"
 
 export function AddTaskModal() {
   const form = useForm()
 
   const Dispatch = useAppDispatch()
-  const onSubmit  =(data)=>{
-   console.log(data);
-    Dispatch(addTask(data))
+  const onSubmit: SubmitHandler<FieldValues>  =(data)=>{
+   
+    Dispatch(addTask(data as ITask))
   }
 
   return (
