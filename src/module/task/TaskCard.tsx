@@ -4,7 +4,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import type { ITask } from "@/types/taskInterface";
 import { Trash2 } from "lucide-react";
 import { useAppDispatch } from "@/redux/hook";
-import { toggleCompleteState } from "@/features/task/taskSlice";
+import { deleteTask, toggleCompleteState } from "@/features/task/taskSlice";
 
 
 
@@ -30,7 +30,7 @@ function TaskCard({task}: IProps) {
                     "bg-red-400":task.priority ==="high",
                 })}></div>
                 <h1> 
-                   <h1>{task.title}</h1>
+                   <h1 className={cn({"line-through":task.isComplete})} >{task.title}</h1>
                 </h1>
                   
                    </div>
@@ -38,9 +38,11 @@ function TaskCard({task}: IProps) {
                    <div className=" flex gap-2 items-center" >
                     <button  className=" p-0 text-red-500 " >  
 
-                        <Trash2/>
+                        <Trash2 onClick={()=>Dispatch(deleteTask(task.id))} />
                     </button>
-                      <Checkbox onClick={()=>Dispatch(toggleCompleteState(task.id))} className=" border-amber-300" />
+                      <Checkbox 
+                      checked={task.isComplete}
+                      onClick={()=>Dispatch(toggleCompleteState(task.id))} className=" border-amber-300" />
                    </div>
 
         </div>
