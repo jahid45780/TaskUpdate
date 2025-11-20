@@ -3,8 +3,9 @@ import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox"
 import type { ITask } from "@/types/taskInterface";
 import { Trash2 } from "lucide-react";
-import { useAppDispatch } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { deleteTask, toggleCompleteState } from "@/features/task/taskSlice";
+import { selectUsers } from "@/features/task/UserSlice";
 
 
 
@@ -18,6 +19,12 @@ function TaskCard({task}: IProps) {
    
   
   const Dispatch = useAppDispatch()
+
+    const users = useAppSelector(selectUsers)
+    console.log(users);
+
+  const assignedUser = users.find(user => user.id === task.AssignedTo )
+
 
   return (
     <div className=" border px-5 py-5 rounded-md" >
@@ -46,6 +53,8 @@ function TaskCard({task}: IProps) {
                    </div>
 
         </div>
+
+        <p> Assigned To__ {assignedUser? assignedUser.name : "no one"} </p>
 
         <p className=" mt-5" > {task.description} </p>
     

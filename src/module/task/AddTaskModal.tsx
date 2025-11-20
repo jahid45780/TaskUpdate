@@ -18,16 +18,17 @@ import { cn } from "@/lib/utils"
 import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form"
-import { useAppDispatch } from "@/redux/hook"
+import { useAppDispatch, useAppSelector } from "@/redux/hook"
 import { addTask } from "@/features/task/taskSlice"
 import type { ITask } from "@/types/taskInterface"
+import { selectUsers } from "@/features/task/UserSlice"
+
 
 export function AddTaskModal() {
   const form = useForm()
-
+  const users = useAppSelector(selectUsers)
   const Dispatch = useAppDispatch()
   const onSubmit: SubmitHandler<FieldValues>  =(data)=>{
-   
     Dispatch(addTask(data as ITask))
   }
 
@@ -98,6 +99,37 @@ export function AddTaskModal() {
                         <SelectItem value="low">Low</SelectItem>
                         <SelectItem value="medium">Medium</SelectItem>
                         <SelectItem value="high">High</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+
+             {/* User Assigned */}
+            <FormField
+              control={form.control}
+              name="AssignedTo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Assigned To</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select user" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        
+                        {
+                          users.map((user)=>(
+                            <SelectItem key={user.id} value={user.id}>{user.name}</SelectItem>
+                          ))
+                        }
+                        
                       </SelectContent>
                     </Select>
                   </FormControl>

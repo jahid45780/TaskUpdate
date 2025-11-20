@@ -16,13 +16,14 @@ tasks:[
   description: "Write and submit the final project report for the client.",
   dueDate: "2025-11-10",
   isComplete: false,
-  priority: "high"
+  priority: "high",
+  AssignedTo:'',
 }
 ],
 filter:'all'
 };
 
-type DraftTask = Pick<ITask, "title" | "description"| "dueDate" | "priority">;
+type DraftTask = Pick<ITask, "title" | "description"| "dueDate" | "priority" | "AssignedTo">;
 
 const createTask = (taskData: DraftTask):ITask =>{
 
@@ -77,6 +78,7 @@ export const selectTask = (state:RootState)=>{
         return state.todo.tasks
   }
   }
+
 
    
 export const selectFilter = (state:RootState)=>{
